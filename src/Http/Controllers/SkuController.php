@@ -5,6 +5,8 @@ namespace Dongdonggo\Sku\Http\Controllers;
 use Encore\Admin\Layout\Content;
 use Illuminate\Routing\Controller;
 
+
+
 class SkuController extends Controller
 {
     public function index(Content $content)
@@ -14,4 +16,6 @@ class SkuController extends Controller
             ->description('Description')
             ->body(view('sku::index'));
     }
+
+
 }
