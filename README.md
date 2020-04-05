@@ -3,6 +3,15 @@
 https://github.com/jade-kun/sku
 基础上 添加了。 单规格情况 商品原价，卖价 库存；  统一管理 
 
+
+## 安装
+```bash
+composer require dongdonggo/sku
+php artisan vendor:publish --provider="Dongdonggo\Sku\SkuServiceProvider"
+```
+
+
+// https://github.com/jade-kun/sku  ---文档  
 laravel-admin extension 商品SKU
 ======
 

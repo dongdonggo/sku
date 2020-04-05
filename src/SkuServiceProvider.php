@@ -1,6 +1,6 @@
 <?php
-
 namespace Dongdonggo\Sku;
+
 
 use Encore\Admin\Admin;
 use Encore\Admin\Form;
@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 class SkuServiceProvider extends ServiceProvider
 {
+
     /**
      * {@inheritdoc}
      */
