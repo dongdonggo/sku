@@ -9,18 +9,18 @@ class SkuField extends Field
     protected $view = 'sku::sku_field';
 
     protected static $js = [
-        'vendor/jadekun/sku/sku.js'
+        'vendor/dongdonggo/sku/sku.js'
     ];
 
     protected static $css = [
-        'vendor/jadekun/sku/sku.css'
+        'vendor/dongdonggo/sku/sku.css'
     ];
 
     public function render()
     {
 
         $this->script = <<< EOF
-window.DemoSku = new JadeKunSKU('{$this->getElementClassSelector()}')
+window.DemoSku = new dongdonggoSKU('{$this->getElementClassSelector()}')
 EOF;
         return parent::render();
     }

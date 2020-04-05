@@ -379,5 +379,5 @@
         }
     };
 
-    window.JadeKunSKU = SKU;
+    window.dongdonggoSKU = SKU;
 })();
