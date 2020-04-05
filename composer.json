@@ -1,5 +1,5 @@
 {
-    "name": "jadekun/sku",
+    "name": "dongdonggo/sku",
     "description": "",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "JadeKun\\Sku\\SkuServiceProvider"
+                "Dongdonggo\\Sku\\SkuServiceProvider"
             ]
         }
     }

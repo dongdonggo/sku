@@ -44,6 +44,29 @@
     background-size: 100%;
     background-repeat:no-repeat;
 }
+.upload_single {
+    display: inline-block;
+    /* height: 40px; */
+    width: 40px;
+    font-size: 32px;
+    line-height: 40px;
+    border: 1px solid #d2d6de;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.clear_single {
+    display: inline-block;
+    margin-left: 5px;
+    color: #ff0000;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 .sku_warp .sku_edit_warp  .Js_sku_del_pic{
     display: inline-block;

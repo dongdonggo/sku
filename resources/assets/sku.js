@@ -1,12 +1,15 @@
 (function () {
-    // 上传地址
-    const UploadHost = '/admin/upload_file';
+    // 图片上传地址
+    // const UploadHost = '/admin/upload_file';
+    const UploadHost = '/admin/api/upload';
 
     function SKU(warp) {
         this.warp = $(warp);
         this.attrs = {};
         this.commonStock = 0; // 统一库存
         this.commonPrice = 0; // 统一价格
+        this.commonPriceOld = 0; // 统一价格
+
         this.init();
     }
 
@@ -24,10 +27,12 @@
                     // 点击了单规格
                     // 隐藏多规格编辑DOM
                     _this.warp.find('.sku_attr_key_val,.sku_edit_warp').hide();
+                    _this.warp.find('.single_row').show();
                 } else if (_dom.hasClass('Js_many_btn')) {
                     // 点击了多规格
                     // 显示多规格编辑DOM
                     _this.warp.find('.sku_attr_key_val,.sku_edit_warp').show();
+                    _this.warp.find('.single_row').hide();
                 }
             }
             _this.processSku()
@@ -85,12 +90,28 @@
         _this.warp.find('.sku_attr_key_val tbody').on('change', 'input', _this.getSkuAttr.bind(_this));
         _this.warp.find('.sku_edit_warp tbody').on('keyup', 'input', _this.processSku.bind(_this));
 
+
+        // 单规格，input
+        _this.warp.find('.single_row tbody').on('keyup', 'input', function () {
+            // _this.commonPrice = $(this).val();
+            // _this.warp.find('.sku_edit_warp tbody td[data-field="price_old"] input').val(_this.commonPrice);
+            _this.processSku()
+        });
+
         // 统一价格
         _this.warp.find('.sku_edit_warp thead').on('keyup', 'input.Js_price', function () {
             _this.commonPrice = $(this).val();
             _this.warp.find('.sku_edit_warp tbody td[data-field="price"] input').val(_this.commonPrice);
             _this.processSku()
         });
+
+        // 统一 原格
+        _this.warp.find('.sku_edit_warp thead').on('keyup', 'input.Js_price_old', function () {
+            _this.commonPrice = $(this).val();
+            _this.warp.find('.sku_edit_warp tbody td[data-field="price_old"] input').val(_this.commonPrice);
+            _this.processSku()
+        });
+
 
         // 统一库存
         _this.warp.find('.sku_edit_warp thead').on('keyup', 'input.Js_stock', function () {
@@ -101,6 +122,13 @@
 
         // SKU图片上传
         _this.warp.find('.sku_edit_warp tbody').on('click', '.Js_sku_upload', function() {
+            console.log('123123');
+            _this.upload($(this))
+        });
+
+        // SKU图片上传--单规格；
+        _this.warp.find('.single_row').on('click', '.Js_sku_upload', function() {
+            console.log('123123');
             _this.upload($(this))
         });
 
@@ -111,6 +139,15 @@
             td.find('.Js_sku_upload').css('background-image','none');
             _this.processSku()
         });
+
+        // 清空SKU图片 --单规格；
+        _this.warp.find('.single_row').on('click','.Js_sku_del_pic', function() {
+            let td = $(this).parent();
+            td.find('input').val('');
+            td.find('.Js_sku_upload').css('background-image','none');
+            _this.processSku()
+        });
+
 
         let old_val = _this.warp.find('.Js_sku_input').val();
         if (old_val) {
@@ -199,23 +236,24 @@
                 thead_html += '<th>' + attr_name + '</th>'
             });
             thead_html += '<th style="width: 100px">图片</th>';
-            thead_html += '<th style="width: 100px">价格 <input value="' + _this.commonPrice + '" type="text" style="width: 50px" class="Js_price"></th>';
+            thead_html += '<th style="width: 100px">卖价 <input value="' + _this.commonPrice + '" type="text" style="width: 50px" class="Js_price"></th>';
+            thead_html += '<th style="width: 100px">原价<input value="' + _this.commonPriceOld + '" type="text" style="width: 50px" class="Js_price_old"></th>';
             thead_html += '<th style="width: 100px">库存 <input value="' + _this.commonStock + '" type="text" style="width: 50px" class="Js_stock"></th>';
             thead_html += '</tr>';
             _this.warp.find('.sku_edit_warp thead').html(thead_html);
 
             // 求笛卡尔积
             let cartesianProductOf = (function () {
-                    return Array.prototype.reduce.call(arguments, function (a, b) {
-                        var ret = [];
-                        a.forEach(function (a) {
-                            b.forEach(function (b) {
-                                ret.push(a.concat([b]));
-                            });
+                return Array.prototype.reduce.call(arguments, function (a, b) {
+                    var ret = [];
+                    a.forEach(function (a) {
+                        b.forEach(function (b) {
+                            ret.push(a.concat([b]));
                         });
-                        return ret;
-                    }, [[]]);
-                })(...Object.values(_this.attrs));
+                    });
+                    return ret;
+                }, [[]]);
+            })(...Object.values(_this.attrs));
 
             // 根据计算的笛卡尔积渲染tbody
             let tbody_html = '';
@@ -227,6 +265,7 @@
                 });
                 tbody_html += '<td data-field="pic"><input value="" type="hidden" class="form-control"><span class="Js_sku_upload">+</span><span class="Js_sku_del_pic">清空</span></td>';
                 tbody_html += '<td data-field="price"><input value="' + _this.commonPrice + '" type="text" class="form-control"></td>';
+                tbody_html += '<td data-field="price_old"><input value="' + _this.commonPriceOld + '" type="text" class="form-control"></td>';
                 tbody_html += '<td data-field="stock"><input value="' + _this.commonStock + '" type="text" class="form-control"></td>';
                 tbody_html += '</tr>'
             });
@@ -278,6 +317,30 @@
             });
             sku_json.sku = sku;
         }
+        // 单规格
+        if (sku_json.type  === 'single') {
+            // 多规格
+            sku_json.attrs = [];
+            let sku = [];
+            _this.warp.find('.single_row tbody tr').each(function () {
+                let tr = $(this);
+                let item_sku = {};
+                tr.find('td[data-field]').each(function () {
+                    let td = $(this);
+                    let field = td.attr('data-field');
+                    let input = td.find('input');
+                    sku_json.attrs.push(field);
+                    if (input.length) {
+                        item_sku[field] = input.val();
+                    } else {
+                        item_sku[field] = td.text();
+                    }
+                });
+                sku.push(item_sku);
+            });
+            sku_json.sku = sku;
+        }
+        console.log(sku_json);
         _this.warp.find('.Js_sku_input').val(JSON.stringify(sku_json));
     };
 
