@@ -2,7 +2,7 @@ laravel-admin extension 商品SKU
 ======
 
 ![预览](https://github.com/jade-kun/sku/blob/master/1.png?raw=true)
-
+ 
 ## 安装
 ```bash
 composer require jadekun/sku

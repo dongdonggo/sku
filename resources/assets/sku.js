@@ -340,8 +340,8 @@
             });
             sku_json.sku = sku;
         }
-        console.log(sku_json);
         _this.warp.find('.Js_sku_input').val(JSON.stringify(sku_json));
+        console.log(sku_json);
     };
 
     // 图片上传

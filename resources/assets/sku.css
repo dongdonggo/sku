@@ -44,9 +44,9 @@
     background-size: 100%;
     background-repeat:no-repeat;
 }
-.upload_single {
+.upload_single{
     display: inline-block;
-    /* height: 40px; */
+    height: 40px;
     width: 40px;
     font-size: 32px;
     line-height: 40px;

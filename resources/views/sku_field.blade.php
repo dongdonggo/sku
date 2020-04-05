@@ -18,7 +18,7 @@
                     <thead>
                     <tr>
                         <th>规格名</th>
-                        <th style="width: 100px">图片</th>
+                        <th style="width: 100px">图片 </th>
                         <th style="width: 100px">卖价 </th>
                         <th style="width: 100px">原价 </th>
                         <th style="width: 100px">库存 </th>
