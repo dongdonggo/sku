@@ -3,12 +3,12 @@
     "description": "",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
-    "homepage": "https://github.com/jade-kun/sku",
+    "homepage": "https://github.com/dongdonggo/sku",
     "license": "MIT",
     "authors": [
         {
-            "name": "jade",
-            "email": "jade@likunit.com"
+            "name": "dongdonggo",
+            "email": "1121190623@qq.com"
         }
     ],
     "require": {
