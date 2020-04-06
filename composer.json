@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JadeKun\\Sku\\": "src/"
+            "Dongdonggo\\Sku\\": "src/"
         }
     },
     "extra": {
